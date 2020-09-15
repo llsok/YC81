@@ -23,7 +23,12 @@ public class IndexAction {
 
 	@Resource
 	private CategoryMapper cm;
-
+	
+	/**
+	 *  ?page=2  =>   http://127.0.0.1/index.html?page=2
+	 *  jquery ias 无限加载插件 以ajax 方法发起 http 请求， 请求一个页面 => HTML 代码
+	 *  ias 会将html中的第二页的内容解析出来，追加到文章列表中
+	 */
 	@GetMapping(path = { "index", "index.html", "/" })
 	// SpringMVC 使用一个 Model 对象传递数据给 页面, Model 通过方法参数注入进来
 	public String index(Model m, @RequestParam(defaultValue = "1") int page) {
