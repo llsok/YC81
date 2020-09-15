@@ -23,7 +23,7 @@ public class IndexAction {
 
 	@Resource
 	private CategoryMapper cm;
-	
+
 	/**
 	 *  ?page=2  =>   http://127.0.0.1/index.html?page=2
 	 *  jquery ias 无限加载插件 以ajax 方法发起 http 请求， 请求一个页面 => HTML 代码
@@ -39,6 +39,12 @@ public class IndexAction {
 		m.addAttribute("newArticles", newArticles);
 		m.addAttribute("categorys", cm.selectAll());
 		return "index";
+	}
+
+	@GetMapping("article.html")
+	public String article(int id, Model m) {
+		m.addAttribute("article", am.selectById(id));
+		return "article";
 	}
 
 }
