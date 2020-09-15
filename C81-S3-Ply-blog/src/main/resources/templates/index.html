@@ -52,11 +52,7 @@
       <div class="collapse navbar-collapse" id="header-navbar">
         <ul class="nav navbar-nav navbar-right">
           <li class="hidden-index active"><a data-cont="异清轩首页" href="index.html">异清轩首页</a></li>
-          <li><a href="category.html">前端技术</a></li>
-          <li><a href="category.html">后端程序</a></li>
-          <li><a href="category.html">管理系统</a></li>
-          <li><a href="category.html">授人以渔</a></li>
-          <li><a href="category.html">程序人生</a></li>
+          <li th:each="c : ${categorys}"><a href="category.html" th:text="${c.name}">前端技术</a></li>
         </ul>
         <form class="navbar-form visible-xs" action="/Search" method="post">
           <div class="input-group">
@@ -103,7 +99,7 @@
         <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a href="">Apache</a><a href="">MySQL</a></div>
       </div>
       <article th:each="a : ${newArticles}" class="excerpt excerpt-2"><a class="focus" href="article.html" title=""><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></a>
-        <header><a class="cat" href="program" th:text="${a.categoryid}">后端程序<i></i></a>
+        <header><a class="cat" href="program" th:text="${a.category.name}">后端程序<i></i></a>
           <h2><a href="article.html" title="" th:text="${a.title}">php如何判断一个日期的格式是否正确</a></h2>
         </header>
         <p class="meta">

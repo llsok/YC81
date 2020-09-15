@@ -16,4 +16,7 @@ public interface CategoryMapper {
 	@Select("select * from category")
 	List<Category> selectAll();
 
+	
+	@Select("select * from category where id= #{id}")
+	Category selectById(int id);
 }
