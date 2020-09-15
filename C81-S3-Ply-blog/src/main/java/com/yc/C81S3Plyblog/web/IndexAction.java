@@ -27,10 +27,10 @@ public class IndexAction {
 	@GetMapping(path = { "index", "index.html", "/" })
 	// SpringMVC 使用一个 Model 对象传递数据给 页面, Model 通过方法参数注入进来
 	public String index(Model m, @RequestParam(defaultValue = "1") int page) {
-		List<Article> newArticles = am.selectNewArticle();
-		// 将查询出的数据添加到 model 中 发送给页面
 		// 分页查询设置必须在查询方法执行前设定
 		PageHelper.startPage(page, 5);
+		List<Article> newArticles = am.selectNewArticle();
+		// 将查询出的数据添加到 model 中 发送给页面
 		m.addAttribute("newArticles", newArticles);
 		m.addAttribute("categorys", cm.selectAll());
 		return "index";
