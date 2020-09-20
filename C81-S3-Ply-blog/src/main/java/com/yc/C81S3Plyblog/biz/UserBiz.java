@@ -27,11 +27,11 @@ public class UserBiz {
 		return dbuser;
 	}
 
-	public User register(User user) throws BizException {
+	public void register(User user) throws BizException {
 		if (um.countByAccount(user) > 0) {
 			throw new BizException("该用户已经存在");
 		}
-		return null;
+		um.insert(user);
 	}
 
 }
