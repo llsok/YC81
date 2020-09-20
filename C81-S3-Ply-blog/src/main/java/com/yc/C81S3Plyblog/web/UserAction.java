@@ -54,6 +54,7 @@ public class UserAction {
 	public ModelAndView register(@Valid User user, Errors errors, ModelAndView mav) {
 		// 设置默认（成功）跳转的页面
 		// 页面跳转行为： 1. 请求转发（默认）， 2 响应重定向
+		// redirect:index 响应重定向跳转，页面的地址栏会变化
 		mav.setViewName("redirect:index");
 
 		if (errors.hasErrors()) {
