@@ -22,6 +22,7 @@ public class User implements java.io.Serializable {
 	@Length(min=4,max=20,message="密码必须是4~20位")
 	private String pwd;
 	private String phone;
+	@NotEmpty(message="邮箱不能为空!")
 	@Email(message="邮箱格式错误")
 	private String email;
 	private String head;

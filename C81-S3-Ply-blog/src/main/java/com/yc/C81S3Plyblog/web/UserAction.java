@@ -56,21 +56,24 @@ public class UserAction {
 		// 页面跳转行为： 1. 请求转发（默认）， 2 响应重定向
 		// redirect:index 响应重定向跳转，页面的地址栏会变化
 		mav.setViewName("redirect:index");
-
+		
+		// 验证用户输入的信息
 		if (errors.hasErrors()) {
-			mav.addObject("errros", errors.getAllErrors());
 			mav.setViewName("register");
+		} else {
+			try {
+				ub.register(user);
+			} catch (BizException e) {
+				e.printStackTrace();
+				errors.rejectValue("account", "AccountFailure", e.getMessage());
+				mav.setViewName("register");
+			}
 		}
 
-		try {
-			ub.register(user);
-		} catch (BizException e) {
-			e.printStackTrace();
-			errors.rejectValue("account", "AccountFailure", e.getMessage());
-			mav.addObject("errros", errors.getAllErrors());
-			mav.setViewName("register");
-		}
-
+		// 将用户对象传回给页面, 实现表单回填
+		mav.addObject("user", user);
+		mav.addObject("errors", errors.getFieldErrors());
+		
 		return mav;
 
 	}

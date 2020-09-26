@@ -27,6 +27,13 @@
 <!--[if lt IE 9]>
   <script>window.location.href='upgrade-browser.html';</script>
 <![endif]-->
+<style type="text/css">
+.msg {
+	color: red;
+	display: inline-block;
+	margin-left: 10px
+}
+</style>
 </head>
 
 <body class="user-select">
@@ -37,10 +44,14 @@
 <section class="container">
   <div class="content-wrap">
     	<form action="register">
-    	用户名：<br><input name="account"><br>
-    	中文名：<br><input name="name"><br>
-    	密码：<br><input name="pwd"><br>
-    	邮箱：<br><input name="email"><br>
+    	用户名：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='account'}" th:text="${e.defaultMessage}"></span>
+    	<br><input name="account" th:value="${user?.account}"><br>
+    	中文名：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='name'}" th:text="${e.defaultMessage}"></span>
+    	<br><input name="name" th:value="${user?.name}"><br>
+    	密码：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='pwd'}" th:text="${e.defaultMessage}"></span>
+    	<br><input name="pwd" th:value="${user?.pwd}"><br>
+    	邮箱：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='email'}" th:text="${e.defaultMessage}"></span>
+    	<br><input name="email" th:value="${user?.email}"><br>
     	<button>注册</button>  <!-- ==> input type="submit" -->
     	</form>
   </div>

@@ -28,9 +28,11 @@ public class UserBiz {
 	}
 
 	public void register(User user) throws BizException {
+		// 判断该账号是否已经被注册
 		if (um.countByAccount(user) > 0) {
 			throw new BizException("该用户已经存在");
 		}
+		// 将该用户写入数据库
 		um.insert(user);
 	}
 
