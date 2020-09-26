@@ -34,6 +34,8 @@
 	margin-left: 10px
 }
 </style>
+<!-- 导入 ckeditor js -->
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 </head>
 
 <body class="user-select">
@@ -43,8 +45,19 @@
 
 <section class="container">
   <div class="content-wrap">
-    	<form action="register">
-    	<h1>文章录入</h1>
+    	<form action="addArticle" method="post">
+    	标题:<br>
+    	<input name="title"><br>
+    	分类:<br>
+    	<input name="categoryid"><br>
+    	标签:<br>
+    	<input name="label"><br>
+    	内容:<br>
+    	<textarea name="content" id="content" rows="" cols=""></textarea>
+    	<script>
+            CKEDITOR.replace( 'content' );
+        </script>
+        <button>发表</button>
     	</form>
   </div>
   <aside class="sidebar">

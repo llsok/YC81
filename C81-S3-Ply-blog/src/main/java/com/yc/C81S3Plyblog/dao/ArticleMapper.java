@@ -2,7 +2,9 @@ package com.yc.C81S3Plyblog.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
@@ -31,5 +33,13 @@ public interface ArticleMapper {
 	// 引用关联查询的配置
 	@ResultMap("rmAct")
 	Article selectById(int id);
+	
+	@Insert("insert into article values("
+			+ "null,#{author},#{title},#{content},null,null,#{categoryid},#{label}"
+			+ ",null,null,now(),0,0)")
+	// 获取自增列主键值
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
+	int insert(Article article);
+	
 
 }
