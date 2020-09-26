@@ -109,10 +109,10 @@ $(".single .content img").lazyload({
 });
  
 //IE6-9禁止用户选中文本
-document.body.onselectstart = document.body.ondrag = function () {
+/*document.body.onselectstart = document.body.ondrag = function () {
     return false;
 };
- 
+ */
 //启用工具提示
 $('[data-toggle="tooltip"]').tooltip();
  
