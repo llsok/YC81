@@ -88,5 +88,11 @@ public class UserAction {
 		mav.setViewName("register");
 		return mav;
 	}
+	
+	@GetMapping("forget.html")
+	public ModelAndView toforget(ModelAndView mav) {
+		mav.setViewName("forget");
+		return mav;
+	}
 
 }

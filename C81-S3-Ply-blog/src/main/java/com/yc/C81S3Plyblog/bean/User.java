@@ -30,6 +30,21 @@ public class User implements java.io.Serializable {
 	private String status;
 	private String type;
 	
+	private String pwdQuestion;
+	private String pwdAnswer;
+	
+	public String getPwdQuestion() {
+		return pwdQuestion;
+	}
+	public void setPwdQuestion(String pwdQuestion) {
+		this.pwdQuestion = pwdQuestion;
+	}
+	public String getPwdAnswer() {
+		return pwdAnswer;
+	}
+	public void setPwdAnswer(String pwdAnswer) {
+		this.pwdAnswer = pwdAnswer;
+	}
 	public Integer getId() {
 		return id;
 	}
