@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.yc.C81S3Plyblog.web.LoginInterceptor;
@@ -28,6 +29,17 @@ public class C81S3PlyBlogApplication implements WebMvcConfigurer{
 		 */
 		registry.addInterceptor(new LoginInterceptor())
 				.addPathPatterns("/toAddArticle","/addArticle");
+	}
+
+	/**
+	 * 实现静态资源映射配置
+	 */
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/**") // 设置 web 的路径
+			.addResourceLocations("classpath:/static/");	 // 设置本地目录路径
+		registry.addResourceHandler("/imgs/**") // 设置 web 的路径
+			.addResourceLocations("file:///d:/cr_img/");	 // 设置本地目录路径
 	}
 
 	

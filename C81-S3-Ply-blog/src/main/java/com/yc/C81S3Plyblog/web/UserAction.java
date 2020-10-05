@@ -1,5 +1,8 @@
 package com.yc.C81S3Plyblog.web;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -8,7 +11,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.C81S3Plyblog.MD5Utils;
@@ -137,6 +142,17 @@ public class UserAction {
 		}
 		um.resetPwd(account,MD5Utils.stringToMD5(pwd));
 		return new Result(1,"密码重置成功!");
+	}
+	
+	/**
+	 * 实现文件上传 AJAX
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@PostMapping("uploadImg")
+	public Result uploadImg( @RequestParam("img")  MultipartFile file) throws IllegalStateException, IOException {
+		file.transferTo(new File("d:/cr_img/" + file.getOriginalFilename()));
+		return new Result(1,"上传成功!");
 	}
 
 }

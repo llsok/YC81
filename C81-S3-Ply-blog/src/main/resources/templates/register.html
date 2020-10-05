@@ -43,7 +43,7 @@
 
 <section class="container">
   <div class="content-wrap">
-    	<form action="register">
+    	<form id="ff" action="register" method="post" enctype="multipart/form-data">
     	用户名：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='account'}" th:text="${e.defaultMessage}"></span>
     	<br><input name="account" th:value="${user?.account}"><br>
     	中文名：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='name'}" th:text="${e.defaultMessage}"></span>
@@ -52,9 +52,25 @@
     	<br><input name="pwd" th:value="${user?.pwd}"><br>
     	邮箱：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='email'}" th:text="${e.defaultMessage}"></span>
     	<br><input name="email" th:value="${user?.email}"><br>
+    	头像：
+    	<br><input name="img" type="file"><br>
     	<button>注册</button>  <!-- ==> input type="submit" -->
+    	<button type="button" onclick="uploadImg()">上传头像</button>
     	</form>
   </div>
+  <script type="text/javascript">
+		function uploadImg(){
+			// ff 是 form 的 id
+			var data = new FormData(ff);
+			axios.post("uploadImg", data).then( res => {
+				alert(res.data.msg);
+			});
+		}
+  
+  </script>
+  
+  
+  
   <aside class="sidebar">
     <div class="fixed">
       <div class="widget widget-tabs">
