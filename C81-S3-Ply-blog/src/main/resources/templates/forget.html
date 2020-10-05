@@ -43,16 +43,16 @@
 
 <section class="container">
   <div class="content-wrap">
-    	<form action="register">
+    	<form>
     	用户名：
-    	<br><input name="account" v-model="account" @blur="checkAccount"><br>
+    	<br><input id="account" v-model="account" @blur="checkAccount"><br>
     	密码问题
-    	<br><input name="email" v-model="pwdQuestion" readonly="readonly"><br>
+    	<br><input id="pwdQuestion" v-model="pwdQuestion" readonly="readonly"><br>
     	密码回答：
-    	<br><input name="email" v-model="pwdAnswer" readonly="readonly"><br>
+    	<br><input id="pwdAnswer" v-model="pwdAnswer" readonly="readonly"><br>
     	新的密码：
-    	<br><input name="pwd"  v-model="pwd" readonly="readonly"><br>
-    	<button>注册</button>  <!-- ==> input type="submit" -->
+    	<br><input id="pwd"  v-model="pwd" readonly="readonly"><br>
+    	<button type="button">注册</button>  <!-- ==> input type="submit" -->
     	</form>
   </div>
   <script type="text/javascript">
@@ -67,7 +67,16 @@
   		methods : {
   			// 
   			checkAccount(){
-  				
+  				axios.get("getQuestion", {
+  					params:{ account : this.account}
+  				}).then( res => {
+  					if(res.data.code == 0){
+  						alert(res.data.msg);
+  					} else {
+  						pwdQuestion.value = res.data.msg;
+  						pwdAnswer.removeAttribute("readonly");
+  					}
+  				});
   			}
   		}
   		

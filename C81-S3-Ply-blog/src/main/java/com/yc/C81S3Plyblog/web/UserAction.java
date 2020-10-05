@@ -15,12 +15,16 @@ import com.yc.C81S3Plyblog.bean.Result;
 import com.yc.C81S3Plyblog.bean.User;
 import com.yc.C81S3Plyblog.biz.BizException;
 import com.yc.C81S3Plyblog.biz.UserBiz;
+import com.yc.C81S3Plyblog.dao.UserMapper;
 
 @RestController // json
 public class UserAction {
 
 	@Resource
 	private UserBiz ub;
+	
+	@Resource
+	private UserMapper um;
 
 	@RequestMapping("login") // ==> PostMapping
 	public Result login(@Valid User user, Errors errors, HttpSession session) {
@@ -93,6 +97,18 @@ public class UserAction {
 	public ModelAndView toforget(ModelAndView mav) {
 		mav.setViewName("forget");
 		return mav;
+	}
+	
+	@GetMapping("getQuestion")
+	public Result findByAccount(String account) {
+		if(account == null || account.trim().isEmpty()) {
+			return new Result(0,"用户名不能为空!");
+		}
+		User user = um.selectByAccount(account);
+		if(user==null) {
+			return new Result(0,"该用户不存在!");
+		}
+		return new Result(1,user.getPwdQuestion());
 	}
 
 }
