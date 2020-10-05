@@ -73,7 +73,9 @@
   					if(res.data.code == 0){
   						alert(res.data.msg);
   					} else {
-  						pwdQuestion.value = res.data.msg;
+  						// 设置密码问题
+  						this.pwdQuestion = res.data.msg;
+  						// 解除输入的只读属性
   						pwdAnswer.removeAttribute("readonly");
   					}
   				});
