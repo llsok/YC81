@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yc.C81S3Plyblog.MD5Utils;
 import com.yc.C81S3Plyblog.bean.Result;
 import com.yc.C81S3Plyblog.bean.User;
 import com.yc.C81S3Plyblog.biz.BizException;
@@ -30,6 +31,8 @@ public class UserAction {
 
 		// 业务逻辑验证
 		try {
+			// md5加密
+			user.setPwd(MD5Utils.stringToMD5(user.getPwd()));
 			User dbuser = ub.login(user);
 			session.setAttribute("loginedUser", dbuser);
 			return new Result(1, "登录成功！");
@@ -62,6 +65,8 @@ public class UserAction {
 			mav.setViewName("register");
 		} else {
 			try {
+				// md5加密
+				user.setPwd(MD5Utils.stringToMD5(user.getPwd()));
 				ub.register(user);
 			} catch (BizException e) {
 				e.printStackTrace();
