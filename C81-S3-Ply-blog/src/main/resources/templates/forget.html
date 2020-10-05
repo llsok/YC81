@@ -52,7 +52,7 @@
     	<br><input id="pwdAnswer" v-model="pwdAnswer" disabled @blur="checkAnswer"><br>
     	新的密码：
     	<br><input id="pwd"  v-model="pwd" disabled><br>
-    	<button id="btn" type="button" disabled>重置密码</button>  <!-- ==> input type="submit" -->
+    	<button id="btn" type="button" disabled @click="resetPwd">重置密码</button>  <!-- ==> input type="submit" -->
     	</form>
   </div>
   <script type="text/javascript">
@@ -91,6 +91,22 @@
   						// 解除输入的只读属性
   						pwd.removeAttribute("disabled");
   						btn.removeAttribute("disabled");
+  					}
+  				});
+  			},
+  			resetPwd(){
+  				// Post 请求参数封装
+  				// java 编译执行,   javascript 解释执行
+  				var param = new URLSearchParams();
+  				param.append("account", this.account);
+  				param.append("pwd", this.pwd);
+  				// 使用post请求发送敏感数据
+  				axios.post("resetPwd", param).then( res => {
+  					if(res.data.code == 0){
+  						alert(res.data.msg);
+  					} else {
+  						// 跳转到首页,并且打开登录窗口
+  						location.href = "index?login=1"
   					}
   				});
   			}

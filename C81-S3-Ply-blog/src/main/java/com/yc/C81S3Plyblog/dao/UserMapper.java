@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.yc.C81S3Plyblog.bean.User;
 
@@ -29,5 +30,8 @@ public interface UserMapper {
 	@Select("select * from user where account = #{account} and pwd_answer=#{pwdAnswer}")
 	@ResultMap("umrm")
 	User selectByAccountAndPwdAnswer(@Param("account") String account, @Param("pwdAnswer") String pwdAnswer);
+
+	@Update("update user set pwd=#{pwd} where account=#{account}")
+	void resetPwd(@Param("account")String account, @Param("pwd")String pwd);
 
 }

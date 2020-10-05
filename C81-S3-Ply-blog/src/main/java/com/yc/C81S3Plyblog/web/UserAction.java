@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -124,6 +125,18 @@ public class UserAction {
 			return new Result(0,"问题回答不正确!");
 		}
 		return new Result(1,"问题回答正确!");
+	}
+	
+	@PostMapping("resetPwd")
+	public Result resetPwd(String account, String pwd) {
+		if(account == null || account.trim().isEmpty()) {
+			return new Result(0,"用户名不能为空!");
+		}
+		if(pwd == null || pwd.trim().isEmpty()) {
+			return new Result(0,"密码不能为空!");
+		}
+		um.resetPwd(account,MD5Utils.stringToMD5(pwd));
+		return new Result(1,"密码重置成功!");
 	}
 
 }
