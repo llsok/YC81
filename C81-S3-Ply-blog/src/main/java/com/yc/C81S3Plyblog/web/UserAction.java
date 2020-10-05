@@ -152,7 +152,8 @@ public class UserAction {
 	@PostMapping("uploadImg")
 	public Result uploadImg( @RequestParam("img")  MultipartFile file) throws IllegalStateException, IOException {
 		file.transferTo(new File("d:/cr_img/" + file.getOriginalFilename()));
-		return new Result(1,"上传成功!");
+		// 回传 图片的web 地址 
+		return new Result(1,"/imgs/" + file.getOriginalFilename());
 	}
 
 }

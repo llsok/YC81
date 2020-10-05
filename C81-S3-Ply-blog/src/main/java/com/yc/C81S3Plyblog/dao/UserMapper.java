@@ -19,7 +19,7 @@ public interface UserMapper {
 	User selectByAccountAndPwd(User user);
 
 	@Insert("insert into user values (null,#{name},#{account},#{pwd},#{phone},"
-			+ "#{email},#{head},#{createtime},#{status},#{type})")
+			+ "#{email},#{head},#{createtime},#{status},#{type},#{pwdQuestion},#{pwdAnswer})")
 	void insert(User user);
 
 	@Select("select * from user where account = #{account}")

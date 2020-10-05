@@ -43,7 +43,7 @@
 
 <section class="container">
   <div class="content-wrap">
-    	<form id="ff" action="register" method="post" enctype="multipart/form-data">
+    	<form id="ff" action="register" method="post">
     	用户名：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='account'}" th:text="${e.defaultMessage}"></span>
     	<br><input name="account" th:value="${user?.account}"><br>
     	中文名：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='name'}" th:text="${e.defaultMessage}"></span>
@@ -53,9 +53,13 @@
     	邮箱：<span class="msg" th:each=" e : ${errors}" th:if="${e.field=='email'}" th:text="${e.defaultMessage}"></span>
     	<br><input name="email" th:value="${user?.email}"><br>
     	头像：
-    	<br><input name="img" type="file"><br>
+    	<input id="head" name="head" type="hidden">
+    	<input id="chooseImg" name="img" type="file" style="display: none;"
+    		onchange="uploadImg()"><br>
+    	<img id="userImg" alt="" src="初始设置为默认的头像.jpg" width="100px" height="150px"
+    		onclick="chooseImg.click()"><br>
     	<button>注册</button>  <!-- ==> input type="submit" -->
-    	<button type="button" onclick="uploadImg()">上传头像</button>
+    	<!-- <button type="button" onclick="uploadImg()">上传头像</button> -->
     	</form>
   </div>
   <script type="text/javascript">
@@ -63,7 +67,10 @@
 			// ff 是 form 的 id
 			var data = new FormData(ff);
 			axios.post("uploadImg", data).then( res => {
-				alert(res.data.msg);
+				// 将回传的图片web地址 展示在img 中
+				userImg.src = res.data.msg;
+				// 将图片web路径写入到用户的 head 属性中
+				head.value = res.data.msg;
 			});
 		}
   
