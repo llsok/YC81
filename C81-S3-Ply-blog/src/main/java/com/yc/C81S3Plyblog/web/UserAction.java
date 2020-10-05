@@ -100,7 +100,7 @@ public class UserAction {
 	}
 	
 	@GetMapping("getQuestion")
-	public Result findByAccount(String account) {
+	public Result getQuestion(String account) {
 		if(account == null || account.trim().isEmpty()) {
 			return new Result(0,"用户名不能为空!");
 		}
@@ -109,6 +109,21 @@ public class UserAction {
 			return new Result(0,"该用户不存在!");
 		}
 		return new Result(1,user.getPwdQuestion());
+	}
+	
+	@GetMapping("answer")
+	public Result answer(String account, String pwdAnswer) {
+		if(account == null || account.trim().isEmpty()) {
+			return new Result(0,"用户名不能为空!");
+		}
+		if(pwdAnswer == null || pwdAnswer.trim().isEmpty()) {
+			return new Result(0,"密码回答不能为空!");
+		}
+		User user = um.selectByAccountAndPwdAnswer(account,pwdAnswer);
+		if(user==null) {
+			return new Result(0,"问题回答不正确!");
+		}
+		return new Result(1,"问题回答正确!");
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.yc.C81S3Plyblog.dao;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
@@ -20,8 +22,12 @@ public interface UserMapper {
 	void insert(User user);
 
 	@Select("select * from user where account = #{account}")
-	@Results(value = { @Result(column = "pwd_question", property = "pwdQuestion"),
+	@Results(id = "umrm", value = { @Result(column = "pwd_question", property = "pwdQuestion"),
 			@Result(column = "pwd_answer", property = "pwdAnswer") })
 	User selectByAccount(String account);
+
+	@Select("select * from user where account = #{account} and pwd_answer=#{pwdAnswer}")
+	@ResultMap("umrm")
+	User selectByAccountAndPwdAnswer(@Param("account") String account, @Param("pwdAnswer") String pwdAnswer);
 
 }
