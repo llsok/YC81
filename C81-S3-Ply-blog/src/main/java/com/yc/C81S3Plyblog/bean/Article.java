@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
 public class Article implements java.io.Serializable{
 	/**
 	 * 
@@ -15,6 +17,7 @@ public class Article implements java.io.Serializable{
 	@NotEmpty
 	private String title;
 	@NotEmpty
+	@Length(min = 50, max = 2000, message = "文章内容长度必须在50~2000字符之间！") 
 	private String content;
 	private String keywords;
 	private String description;

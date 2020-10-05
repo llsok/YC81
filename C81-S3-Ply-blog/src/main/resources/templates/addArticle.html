@@ -49,7 +49,10 @@
     	标题:<br>
     	<input name="title"><br>
     	分类:<br>
-    	<input name="categoryid"><br>
+    	<select name="categoryid">
+    		<option th:each=" c : ${cList} " th:value="${c.id}" th:text="${c.name}"></option>
+    	</select>
+    	<br>
     	标签:<br>
     	<input name="label"><br>
     	内容:<br>
