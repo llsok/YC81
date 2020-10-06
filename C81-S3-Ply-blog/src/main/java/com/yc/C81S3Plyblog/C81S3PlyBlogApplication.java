@@ -28,7 +28,7 @@ public class C81S3PlyBlogApplication implements WebMvcConfigurer{
 		 * 拦截器地址要以 / 开头
 		 */
 		registry.addInterceptor(new LoginInterceptor())
-				.addPathPatterns("/toAddArticle","/addArticle");
+				.addPathPatterns("/toAddArticle","/addArticle","/reply.do");
 	}
 
 	/**

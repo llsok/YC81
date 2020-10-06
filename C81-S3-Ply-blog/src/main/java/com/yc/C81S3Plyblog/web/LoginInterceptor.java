@@ -17,7 +17,20 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if(request.getSession().getAttribute("loginedUser") == null) {
-			response.sendRedirect("index?login=1");
+			
+			// 如果没有登录
+			// 判断当前是什么类型的请求
+			// Accept application/json, text/plain, */*   ==> ajax 请求头
+			// Accept text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8  ==> 非 ajax 请求头
+			if ( request.getHeader("Accept").startsWith("application/json")) {
+				// 如果是ajax请求, 返回 json 格式数据集
+				String json = " { \"code\":0, \"data\":[{\"defaultMessage\":\"请先登录系统!\"}]}";
+				response.setContentType("application/json;charset=UTF-8");
+				response.getWriter().append(json);
+			} else {
+				// 如果是非 ajax请求,则跳转页
+				response.sendRedirect("index?login=1");
+			}
 			// false ==> 请求从此中断,不去访问 action
 			return false;
 		} else {
