@@ -116,11 +116,11 @@
           <div class="comment">
             <div class="comment-title"><img class="avatar" src="images/icon/icon.png" alt="" /></div>
             <div class="comment-box">
-              <textarea placeholder="您的评论可以一针见血" name="comment" id="comment-textarea" cols="100%" rows="3" tabindex="1" ></textarea>
+              <textarea v-model="comment.content" placeholder="您的评论可以一针见血" name="comment" id="comment-textarea" cols="100%" rows="3" tabindex="1" ></textarea>
               <div class="comment-ctrl"> <span class="emotion"><img src="images/face/5.png" width="20" height="20" alt="" />表情</span>
                 <div class="comment-prompt"> <i class="fa fa-spin fa-circle-o-notch"></i> <span class="comment-prompt-text"></span> </div>
                 <input type="hidden" value="1" class="articleid" />
-                <button type="submit" name="comment-submit" id="comment-submit" tabindex="5" articleid="1">评论</button>
+                <button type="button" @click="reply" name="comment-submit" id="comment-submit" tabindex="5" articleid="1">评论</button>
               </div>
             </div>
           </div>
@@ -142,21 +142,49 @@
     </div>
   </div>
   <script type="text/javascript">
+  	//获取请求参数 id (文章id) 的值
   	var aid = [[${param.id}]];  // thymeleaf 在js 中获取对象语法
   	var vue = new Vue({
   		el : ".content-wrap",
   		data : {
   			commList : [],  // 评论列表
-  			commnet : {}    // 当前提交的评论
+  			comment : {
+  				articleid : aid,
+  				content : ""
+  			}    // 当前提交的评论
   		},
   		// 查询  事件钩子函数
   		created (){
   			axios.get("queryComm",{params:{
   				articleid : aid
   			}}).then( res => {
-  				// res.data ==> Result.data ==> List  ==> js 数组
+  				// res.data ==> Result ==> Result.data ==> List  ==> js 数组
   				this.commList = res.data.data;
   			})
+  		},
+  		methods : {
+  			reply(){
+  				// 发表评论
+  				var param = new URLSearchParams();
+  				param.append("articleid", this.comment.articleid);
+  				param.append("content", this.comment.content);
+  				axios.post("reply.do", param).then( res => {
+	  				if(res.data.code == 1){
+	  					// 成功!
+	  					// 将新的评论追加到评论列表中
+	  					this.commList.push(res.data.data);
+	  					// 清空输入框的内容
+	  					this.comment.content = "";
+	  				} else {
+	  					// 失败!
+	  					var msg = "";
+	  					for( var error of res.data.data){
+	  						msg += error.defaultMessage + "\n"; // 查 json 格式
+	  					}
+	  					alert(msg);
+	  				}
+	  			})
+  			}
   		}
   	});
   

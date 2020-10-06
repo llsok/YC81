@@ -25,7 +25,7 @@ public class CommentAction {
 		return new Result(1,"评论查询成功!",cm.selectByArticleid(articleid));
 	}
 	
-	@GetMapping("reply.do")
+	@PostMapping("reply.do")
 	public Result create(@Valid Comment comment, Errors errors, 
 			@SessionAttribute User loginedUser) {
 		if(errors.hasErrors()) {
