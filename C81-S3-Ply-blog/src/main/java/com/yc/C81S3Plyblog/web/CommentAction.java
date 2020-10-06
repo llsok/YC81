@@ -33,7 +33,7 @@ public class CommentAction {
 		}
 		comment.setCreateby(loginedUser.getId());
 		cm.insert(comment);
-		return new Result(1,"评论验证成功!", comment);
+		return new Result(1,"评论发表成功!", comment);
 	}
 
 }
