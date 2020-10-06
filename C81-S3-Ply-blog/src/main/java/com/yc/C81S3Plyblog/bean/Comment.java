@@ -2,12 +2,18 @@ package com.yc.C81S3Plyblog.bean;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class Comment implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	private Integer articleid;
+	@NotEmpty
+	@Length(min=2,max=1000,message = "评论的内容必须是2~1000个字符!")
 	private String content;
 	private Integer createby;
 	private Timestamp createtime;
